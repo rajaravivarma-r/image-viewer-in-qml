@@ -9,19 +9,5 @@ ApplicationWindow {
 
   ThumbnailGrid {
     id: thumbnailGrid
-    anchors.fill: parent
-  }
-
-  Connections {
-    target: imageBrowser
-    onImageFileDetected: {
-      thumbnailGrid.addImage(imagePath)
-    }
-  }
-
-  Component.onCompleted: {
-    imageBrowser.browse()
   }
 }
-
-
