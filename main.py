@@ -15,12 +15,14 @@ if __name__ == "__main__":
     # Create QML engine
     engine = QQmlApplicationEngine()
 
-    imageListModel = ImageListModel()
-    imageListModel.addImageFile(
-        ImageFile(
-            path="/Users/rajaravivarma/Github/image-viewer/sample_images/IMG_20180707_191723252818.jpg"
-        )
+    imageBrowser = ImageBrowser(
+        "/Users/rajaravivarma/Github/image-viewer/sample_images/"
     )
+    imageListModel = ImageListModel()
+    imageBrowser.imageFileDetected.connect(
+        lambda path: imageListModel.addImageFile(ImageFile(path))
+    )
+    imageBrowser.start()
 
     # And register it in the context of QML
     engine.rootContext().setContextProperty("imageListModel", imageListModel)

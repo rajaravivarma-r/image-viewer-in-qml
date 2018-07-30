@@ -57,6 +57,7 @@ class ImageListModel(QAbstractListModel):
 
     def roleNames(self):
         return {
+            # encode is used because the roleName is expected in byte format
             role.value: role.name.encode()
             for role in ImageListModel.ImageFileRoles
         }
