@@ -1,3 +1,4 @@
+import os
 import glob
 
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QThread
@@ -68,10 +69,6 @@ class ImageMatchCalculator(QThread):
     def _matches(self, image_file1, image_file2):
         distance = self.signature_generator.normalized_distance(
             image_file1.signature, image_file2.signature
-        )
-        print(
-            f"Distance between {image_file1.name} and {image_file2.name}: "
-            f"{distance}"
         )
         return distance <= 0.3
 
