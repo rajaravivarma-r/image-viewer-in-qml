@@ -7,6 +7,7 @@ from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
 
 from image_viewer.image_browser import ImageBrowser
 from image_viewer.image_list_model import ImageListModel, ImageFile
+from image_viewer.image_match_calculator import ImageMatchCalculator
 
 if __name__ == "__main__":
 
@@ -23,6 +24,11 @@ if __name__ == "__main__":
         lambda path: imageListModel.addImageFile(ImageFile(path))
     )
     imageBrowser.start()
+
+    imageMatchCalculator = ImageMatchCalculator(
+        "/Users/rajaravivarma/Github/image-viewer/sample_images/"
+    )
+    imageMatchCalculator.start()
 
     # And register it in the context of QML
     engine.rootContext().setContextProperty("imageListModel", imageListModel)
