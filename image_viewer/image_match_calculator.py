@@ -4,7 +4,7 @@ import glob
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QThread
 from image_match.goldberg import ImageSignature
 
-from .image_list_model import ImageFile
+from . import ImageFile
 
 
 class ImageMatchCalculator(QThread):
@@ -17,6 +17,8 @@ class ImageMatchCalculator(QThread):
     image_signature_calculated = pyqtSignal(
         str, arguments=["imagePath"], name="imageProcessed"
     )
+    # Emitted as soon as a set of duplicates are found
+    image_duplicates_found = pyqtSignal(ImageFile)
     # Emitted when all the duplicate matches are found
     finished = pyqtSignal(object)
 
@@ -59,6 +61,11 @@ class ImageMatchCalculator(QThread):
                         if self._matches(image_file, another_image_file):
                             image_file.add_duplicate(another_image_file)
                             self.image_files[j] = None
+            # If this element is None and the previous element is not None,
+            # then it must be an ImageFile with all of its duplicates
+            # identified
+            elif self.image_files[i - 1] is not None:
+                self.image_duplicates_found.emit(self.image_files[i - 1])
 
         self.image_files = [
             image_file
