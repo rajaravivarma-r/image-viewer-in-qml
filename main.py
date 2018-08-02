@@ -5,9 +5,9 @@ from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
 
-from image_viewer.image_browser import ImageBrowser
-from image_viewer.image_list_model import ImageListModel, ImageFile
-from image_viewer.image_match_calculator import ImageMatchCalculator
+from image_viewer.image_list_model import ImageListModel
+from image_viewer.duplicate_image_list_model import DuplicateImageListModel
+
 
 if __name__ == "__main__":
 
@@ -16,22 +16,13 @@ if __name__ == "__main__":
     # Create QML engine
     engine = QQmlApplicationEngine()
 
-    imageBrowser = ImageBrowser(
-        "/Users/rajaravivarma/Github/image-viewer/sample_images/"
-    )
     imageListModel = ImageListModel()
-    imageBrowser.imageFileDetected.connect(
-        lambda path: imageListModel.addImageFile(ImageFile(path))
-    )
-    imageBrowser.start()
-
-    imageMatchCalculator = ImageMatchCalculator(
-        "/Users/rajaravivarma/Github/image-viewer/sample_images/"
-    )
-    imageMatchCalculator.start()
-
+    duplicateImageListModel = DuplicateImageListModel()
     # And register it in the context of QML
     engine.rootContext().setContextProperty("imageListModel", imageListModel)
+    engine.rootContext().setContextProperty(
+        "duplicateImageListModel", duplicateImageListModel
+    )
     # Load the qml file into the engine
     engine.load("qml/main.qml")
 

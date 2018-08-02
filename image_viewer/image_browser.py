@@ -16,6 +16,9 @@ class ImageBrowser(QThread):
         self.starting_directory = starting_directory
         self.glob_path = os.path.join(starting_directory, "*.jpg")
 
+    def __del__(self):
+        self.wait()
+
     def run(self):
         self.browse()
 

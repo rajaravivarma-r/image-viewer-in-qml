@@ -10,6 +10,7 @@ from PyQt5.QtCore import (
 )
 
 from . import ImageFile
+from image_viewer.image_browser import ImageBrowser
 
 
 class ImageListModel(QAbstractListModel):
@@ -59,3 +60,11 @@ class ImageListModel(QAbstractListModel):
 
     def rowCount(self, parent):
         return len(self.imageFiles)
+
+    @pyqtSlot(str)
+    def populateImages(self, imageFolderPath):
+        imageBrowser = ImageBrowser(imageFolderPath)
+        imageBrowser.imageFileDetected.connect(
+            lambda imagePath: self.addImageFile(ImageFile(imagePath))
+        )
+        imageBrowser.start()
