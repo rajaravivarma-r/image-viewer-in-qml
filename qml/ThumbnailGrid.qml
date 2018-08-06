@@ -1,17 +1,18 @@
 import QtQuick 2.5
-import Qt.labs.folderlistmodel 2.11
 
 GridView {
   id: thumbnailGrid
   anchors.fill: parent
-  anchors.margins: 10
 
-  cellHeight: 170
-  cellWidth: 170
+  cellHeight: 150
+  cellWidth: 150
 
   currentIndex: 1
 
-  delegate: Thumbnail {}
+  delegate: Thumbnail {
+    height: cellHeight
+    width: cellWidth
+  }
   model: imageListModel
 
   highlight: Component {
