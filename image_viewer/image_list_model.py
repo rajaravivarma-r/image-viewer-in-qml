@@ -17,6 +17,7 @@ class ImageListModel(QAbstractListModel):
     class ImageFileRoles(enum.Enum):
         path = Qt.UserRole + 1
         name = path + 1
+        selected = name + 1
 
     def __init__(self, parent=None):
         super(ImageListModel, self).__init__(parent)
@@ -40,10 +41,23 @@ class ImageListModel(QAbstractListModel):
         if role == ImageListModel.ImageFileRoles.name.value:
             return imageFile.name
 
+        if role == ImageListModel.ImageFileRoles.selected.value:
+            return imageFile.selected
+
         return None
 
     def setData(self, index, value, role):
-        pass
+        if not index.isValid():
+            return False
+
+        if index.row() > len(self.imageFiles):
+            return False
+
+        imageFile = self.imageFiles[index.row()]
+
+        if role == ImageListModel.ImageFileRoles.selected.value:
+            imageFile.set_selection(value)
+            return True
 
     def addImageFile(self, imageFile):
         noOfImageFiles = len(self.imageFiles)
