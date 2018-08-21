@@ -14,3 +14,11 @@ class ImageFile:
 
     def set_selection(self, value):
         self.selected = value
+
+    def __repr__(self):
+        newline = "\n"
+        return (
+            f"<Image name: {self.name}, path: {self.path}, "
+            f"signature: {self.signature}, selected: {self.selected}>, "
+            f"duplicates: {newline.join([img.name for img in self.duplicates])}"
+        )
