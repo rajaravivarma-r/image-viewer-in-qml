@@ -68,5 +68,21 @@ class DuplicateImageListModel(QAbstractListModel):
     @pyqtSlot(str)
     def findDuplicateImages(self, imageFolderPath):
         imageMatchCalculator = ImageMatchCalculator(imageFolderPath)
-        imageMatchCalculator.image_duplicates_found.connect(self.addImageFile)
+        imageMatchCalculator.distinct_image_found.connect(self.addImageFile)
+        imageMatchCalculator.duplicate_image_found.connect(
+            self._handleDuplicatesAddition
+        )
         imageMatchCalculator.start()
+
+    def _handleDuplicatesAddition(self, originalImageFile, duplicateImageFile):
+        try:
+            positionOfImageFile = next(
+                idx
+                for idx, imageFile in enumerate(self.imageFiles)
+                if imageFile.path == originalImageFile.path
+            )
+            originalImageFile.add_duplicate(duplicateImageFile)
+            changedIndex = self.index(positionOfImageFile, 0)
+            self.dataChanged.emit(changedIndex, changedIndex)
+        except StopIteration:
+            print("Not able to find the image in the existing list")
