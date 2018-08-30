@@ -5,7 +5,7 @@ Item {
   id: duplicateImageViewDelegate
   anchors.left: parent.left
   anchors.right: parent.right
-  height: 200
+  height: 300
 
   ColumnLayout {
     spacing: 0
@@ -14,7 +14,7 @@ Item {
       source: path
       autoTransform: true
       Layout.preferredWidth: duplicateImageViewDelegate.width
-      Layout.preferredHeight: 100
+      Layout.preferredHeight: 200
       Layout.alignment: Qt.AlignVCenter
 
       sourceSize.width: width
@@ -40,7 +40,8 @@ Item {
 
         Image {
           anchors.fill: parent
-          anchors.margins: 10
+          anchors.leftMargin: 1
+          anchors.topMargin: 1
 
           autoTransform: true
 
