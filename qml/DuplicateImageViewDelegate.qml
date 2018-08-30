@@ -1,4 +1,5 @@
 import QtQuick 2.11
+import QtQuick.Layouts 1.11
 
 Item {
   id: duplicateImageViewDelegate
@@ -6,22 +7,27 @@ Item {
   anchors.right: parent.right
   height: 200
 
-  Column {
+  ColumnLayout {
+    spacing: 0
+
     Image {
       source: path
       autoTransform: true
-      width: duplicateImageViewDelegate.width
-      height: 100
+      Layout.preferredWidth: duplicateImageViewDelegate.width
+      Layout.preferredHeight: 100
+      Layout.alignment: Qt.AlignVCenter
 
       sourceSize.width: width
       sourceSize.height: height
+
+      fillMode: Image.PreserveAspectFit
     }
 
     ListView {
       id: listView
-      anchors.left: parent.left
-      anchors.right: parent.right
-      height: 100
+      Layout.preferredHeight: 100
+      Layout.preferredWidth: duplicateImageViewDelegate.width
+      Layout.alignment: Qt.AlignVCenter
 
       orientation: Qt.Horizontal
       layoutDirection: Qt.LeftToRight
@@ -47,5 +53,4 @@ Item {
       }
     }
   }
-
 }
