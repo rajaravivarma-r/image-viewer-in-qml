@@ -5,10 +5,12 @@ Item {
   id: duplicateImageViewDelegate
   anchors.left: parent.left
   anchors.right: parent.right
-  height: 300
+  height: columnLayout.childrenRect.height
 
   ColumnLayout {
+    id: columnLayout
     spacing: 0
+    anchors.fill: parent
 
     Image {
       source: path
@@ -23,33 +25,35 @@ Item {
       fillMode: Image.PreserveAspectFit
     }
 
-    ListView {
-      id: listView
-      Layout.preferredHeight: 100
-      Layout.preferredWidth: duplicateImageViewDelegate.width
-      Layout.alignment: Qt.AlignVCenter
+    GridLayout {
+      id: duplicateImageGrid
+      Layout.fillWidth: true
+      Layout.fillHeight: true
 
-      orientation: Qt.Horizontal
-      layoutDirection: Qt.LeftToRight
+      columns: 4
 
-      model: duplicates
+      Repeater {
+        model: duplicates
 
-      delegate: Item {
-        width: 150
-        height: 100
+        Item {
+          Layout.preferredWidth: 150
+          Layout.preferredHeight: 100
+          Layout.fillWidth: true
 
-        Image {
-          anchors.fill: parent
-          anchors.leftMargin: 1
-          anchors.topMargin: 1
+          Image {
+            anchors.fill: parent
+            anchors.leftMargin: 1
+            anchors.topMargin: 1
 
-          autoTransform: true
+            autoTransform: true
 
-          sourceSize.width: height
-          sourceSize.height: width
+            sourceSize.width: height
+            sourceSize.height: width
 
-          clip: true
-          source: path
+            clip: true
+            source: path
+            fillMode: Image.PreserveAspectFit
+          }
         }
       }
     }
