@@ -30,7 +30,7 @@ Item {
       Layout.fillWidth: true
       Layout.fillHeight: true
 
-      columns: 4
+      columns: duplicates.length > 4 ? 4 : duplicates.length
 
       Repeater {
         model: duplicates
