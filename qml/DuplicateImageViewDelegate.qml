@@ -29,31 +29,30 @@ Item {
       id: duplicateImageGrid
       Layout.fillWidth: true
       Layout.fillHeight: true
+      rowSpacing: 1
 
       columns: duplicates.length > 4 ? 4 : duplicates.length
 
       Repeater {
         model: duplicates
 
-        Item {
+        Image {
+          // anchors.fill: parent
+          // anchors.leftMargin: 1
+          // anchors.topMargin: 1
+
           Layout.preferredWidth: 150
           Layout.preferredHeight: 100
           Layout.fillWidth: true
 
-          Image {
-            anchors.fill: parent
-            anchors.leftMargin: 1
-            anchors.topMargin: 1
+          autoTransform: true
 
-            autoTransform: true
+          sourceSize.width: height
+          sourceSize.height: width
 
-            sourceSize.width: height
-            sourceSize.height: width
-
-            clip: true
-            source: path
-            fillMode: Image.PreserveAspectFit
-          }
+          clip: true
+          source: path
+          fillMode: Image.PreserveAspectFit
         }
       }
     }

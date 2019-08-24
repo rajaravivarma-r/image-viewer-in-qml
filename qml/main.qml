@@ -28,6 +28,19 @@ ApplicationWindow {
     }
   }
 
+  header: ToolBar {
+    id: topToolBar
+    visible: false
+
+    RowLayout {
+      anchors.fill: parent
+
+      ToolButton {
+        text: 'Delete'
+      }
+    }
+  }
+
   ThumbnailGrid {
     id: thumbnailGrid
     visible: false
