@@ -6,11 +6,11 @@ name = "pypi"
 [packages]
 numpy = "*"
 scipy = "*"
-image-match = "*"
 "pyqt5" = "*"
+image-match = {file = "image-match"}
 
 [dev-packages]
 ptpython = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.8"
