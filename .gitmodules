@@ -1,0 +1,3 @@
+[submodule "image-match"]
+	path = image-match
+	url = git@github.com:rhsimplex/image-match.git
