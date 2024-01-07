@@ -34,7 +34,7 @@ class ImageMatchCalculator(QThread):
         QObject.__init__(self)
 
         self.starting_directory = starting_directory
-        self.glob_path = os.path.join(starting_directory, "*.jpg")
+        self.glob_path = os.path.join(starting_directory, "*.png")
         self.signature_generator = ImageSignature()
         self.image_files = []
         self.distinct_image_files = []

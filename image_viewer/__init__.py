@@ -1,6 +1,5 @@
 import os
 
-
 class ImageFile:
     def __init__(self, path, signature=None, duplicates=None):
         self.path = path

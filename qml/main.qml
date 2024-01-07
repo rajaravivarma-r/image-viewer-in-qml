@@ -52,7 +52,11 @@ ApplicationWindow {
     function hide() {
       thumbnailGrid.visible = false
     }
-    Component.onCompleted: imageListModel.populateImages("/Users/rajaravivarma/Github/image-viewer/sample_images/")
+
+    Component.onCompleted: {
+      console.log('populating images')
+      imageListModel.populateImages("/home/raja/Github/image-viewer-in-qml/sample_images")
+    }
   }
 
   DuplicateImagesPage {
@@ -66,6 +70,10 @@ ApplicationWindow {
     function hide() {
       duplicateImagesPage.visible = false
     }
-    Component.onCompleted: duplicateImageListModel.findDuplicateImages("/Users/rajaravivarma/Github/image-viewer/sample_images/")
+
+    Component.onCompleted: {
+      console.log('finding duplicate images')
+      duplicateImageListModel.findDuplicateImages("/home/raja/Github/image-viewer-in-qml/sample_images")
+    }
   }
 }

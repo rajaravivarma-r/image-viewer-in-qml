@@ -6,6 +6,8 @@ Item {
   anchors.left: parent.left
   anchors.right: parent.right
   height: columnLayout.childrenRect.height
+  // property var modelPath: model.path
+  property var modelDuplicates: duplicates
 
   ColumnLayout {
     id: columnLayout
@@ -23,6 +25,13 @@ Item {
       sourceSize.height: height
 
       fillMode: Image.PreserveAspectFit
+      // Component.onCompleted: { 
+      //   console.log(duplicates) 
+      //   var duplicate = duplicates[0]
+      //   if (duplicate !== null) {
+      //     console.log(duplicate.path)
+      //   }
+      // }
     }
 
     GridLayout {
@@ -34,7 +43,8 @@ Item {
       columns: duplicates.length > 4 ? 4 : duplicates.length
 
       Repeater {
-        model: duplicates
+        id: duplicateRepeater
+        model: duplicateImageViewDelegate.modelDuplicates
 
         Image {
           // anchors.fill: parent
@@ -51,8 +61,18 @@ Item {
           sourceSize.height: width
 
           clip: true
-          source: path
+          source: modelData
           fillMode: Image.PreserveAspectFit
+          Component.onCompleted: { 
+            // console.log('Original path: ', duplicateImageViewDelegate.modelPath) 
+            // console.log('modelData path: ', path) 
+            // console.log('duplicates: ', modelData) 
+            // if (!duplicateImageViewDelegate.modelDuplicates) { return }
+
+            // for (var i = 0; i < duplicateImageViewDelegate.modelDuplicates.length; i++) {
+            //   console.log('Duplicate path: ', duplicateImageViewDelegate.modelDuplicates[i]) 
+            // }
+          }
         }
       }
     }

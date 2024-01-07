@@ -24,6 +24,7 @@ class DuplicateImageListModel(QAbstractListModel):
         self.imageFiles = []
 
     def data(self, index, role=Qt.DisplayRole):
+        # print(f'{index=}; {index.row()=} {role=}')
         if not index.isValid():
             return None
 
@@ -42,7 +43,13 @@ class DuplicateImageListModel(QAbstractListModel):
             return imageFile.name
 
         if role == DuplicateImageListModel.ImageFileRoles.duplicates.value:
-            return imageFile.duplicates
+            # if imageFile.duplicates:
+            #     print(f'Original {imageFile.path=}')
+            #     for d in imageFile.duplicates:
+            #         print(f'Duplicate imageFile {d.path=}')
+            #     print()
+            # return imageFile.duplicates
+            return [dup.path for dup in imageFile.duplicates]
 
         return None
 
@@ -75,6 +82,9 @@ class DuplicateImageListModel(QAbstractListModel):
         imageMatchCalculator.start()
 
     def _handleDuplicatesAddition(self, originalImageFile, duplicateImageFile):
+        # print(f'{originalImageFile.path=}')
+        # print(f'{duplicateImageFile.path=}')
+        # print()
         try:
             positionOfImageFile = next(
                 idx
